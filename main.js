@@ -23,7 +23,7 @@ let enableDebugMode = function (game, enable) {
             window.paused = !paused
         } else if ('1234567'.includes(k)) {
             // 载入关卡功能
-            blocks = loadLevel(game, Number(k))
+            // blocks = loadLevel(game, Number(k))
         }
     })
     // 使用滑条控制速度， input 可以动态监控值
@@ -35,31 +35,14 @@ let enableDebugMode = function (game, enable) {
 }
 let __main = function () {
     let images = {
-        paddle: 'img/paddle.png',
-        ball: 'img/ball.png',
-        block: 'img/block.png',
+        bullet: 'img/bullet.png',
+        // cloud: 'img/cloud.png',
+        player: 'img/player.png',
+        sky: 'img/sky.png',
     }
-    // let score = 0
-    // GuaGame 载入,并初始化 fps, images
     // 这里有个回调的问题需要加上function, 并将操作放在其中
     let game = GuaGame.instance(30, images, function(game){
-        // 使用 scene 抽象了 update, draw
-        // let scene = Scene(game)
-        // game.update = function () {
-        //     // 按了暂停
-        //     if (window.paused) {
-        //         return
-        //     }
-        //     // s.update
-        //     scene.update()
-        // }
-        // game.draw = function () {
-        //     // s.draw
-        //     scene.draw()
-        // }
-        // debug 模式开启,放在外边也可用
-        // enableDebugMode(game, true)
-        let s = SceneTitle.new(game)
+        let s = Scene.new(game)
         game.runWithScene(s)
     })
     enableDebugMode(game, true)

@@ -26,7 +26,8 @@ class GuaGame {
         return this.i
     }
     drawImage(img) {
-        this.context.drawImage(img.image, img.x, img.y)
+        // 这里的 img 是一个 GuaImage
+        this.context.drawImage(img.texture, img.x, img.y)
     }
     // 这里如果不使用箭头函数就要在前面 bind
     update() {
@@ -64,15 +65,16 @@ class GuaGame {
             g.runloop()
         }, 1000 / window.fps)
     }
-    imageByName(name) {
+    textureByName(name) {
         let g = this
         let img = g.images[name]
-        let image = {
-            w: img.width,
-            h: img.height,
-            image: img,
-        }
-        return image
+        // let image = {
+        //     w: img.width,
+        //     h: img.height,
+        //     image: img,
+        // }
+        // return image
+        return img
     }
     runWithScene(scene) {
         let g = this
