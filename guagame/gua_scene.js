@@ -27,7 +27,6 @@ class GuaScene {
     deleteElement(img) {
         img.scene = this
         const index = this.elements.indexOf(img)
-        // fixme
         this.elements.splice(index, 1)
     }
 
