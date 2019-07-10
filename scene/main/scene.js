@@ -53,6 +53,28 @@ class Enemy extends GuaImage {
     }
 }
 
+class Cloud extends GuaImage {
+    constructor(game) {
+        super(game, 'cloud')
+        this.setup()
+
+    }
+    setup() {
+        this.speed = 1
+        this.x = randomBetween(0, 150)
+        this.y = -randomBetween(0, 200)
+    }
+    update() {
+        this.y += this.speed
+        if (this.y > 400) {
+            this.setup()
+        }
+    }
+    moveDown() {
+
+    }
+}
+
 class Scene extends GuaScene {
     constructor(game) {
         super(game)
@@ -61,7 +83,7 @@ class Scene extends GuaScene {
     }
     setup() {
         this.bg = GuaImage.new(this.game, 'sky')
-        this.cloud = GuaImage.new(this.game, 'cloud')
+        this.cloud = Cloud.new(this.game, 'cloud')
 
         this.player = Player.new(this.game)
         this.player.x = 100
