@@ -3,6 +3,7 @@ const config = {
     cloud_speed: 2,
     enemy_speed: 5,
     bullet_speed: 5,
+    cooldown: 3,
 }
 
 class Player extends GuaImage {
@@ -35,7 +36,7 @@ class Player extends GuaImage {
     }
     fire() {
         if (this.cooldown === 0) {
-            this.cooldown = 10
+            this.cooldown = config.cooldown
             let x = this.x + this.w / 2
             let y = this.y
             let b = Bullet.new(this.game)
@@ -64,17 +65,18 @@ class Enemy extends GuaImage {
     setup() {
         this.speed = randomBetween(2, 5)
         this.x = randomBetween(0, 350)
+        // this.y = 0
         this.y = randomBetween(0, -250)
     }
     update() {
-        // this.y += this.speed
-        this.y += config.enemy_speed
+        this.y += this.speed
+        // this.y += config.enemy_speed
         if (this.y > 600) {
             this.setup()
         }
     }
-    moveDown() {
-
+    debug() {
+        this.y += config.enemy_speed
     }
 }
 
@@ -85,18 +87,19 @@ class Cloud extends GuaImage {
 
     }
     setup() {
-        this.speed = config.cloud_speed
+        // this.speed = config.cloud_speed
+        this.speed = 1
         this.x = randomBetween(0, 150)
         this.y = -randomBetween(0, 200)
     }
     update() {
         this.y += this.speed
-        if (this.y > 400) {
+        if (this.y > 400 || this.y < -400) {
             this.setup()
         }
     }
-    moveDown() {
-
+    debug() {
+        this.y += config.cloud_speed
     }
 }
 
@@ -106,9 +109,11 @@ class Bullet extends GuaImage {
         this.setup()
     }
     setup() {
-        this.speed = 10
+        // 这里使用 config.bullet_speed 会使当前发射的 bullet 速度改变
+        this.speed = config.bullet_speed
     }
     update() {
+        // 这里使用 config.bullet_speed 会使当前画面的全部 bullet 速度改变
         this.y -= this.speed
     }
 }
