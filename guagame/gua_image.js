@@ -16,7 +16,8 @@ class GuaImage {
     }
 
     draw() {
-
+        // gua_scene 中元素调用的 e.draw()
+        this.game.drawImage(this)
     }
 
     update() {

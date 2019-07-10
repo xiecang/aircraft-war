@@ -46,7 +46,8 @@ let __main = function () {
     }
     // 这里有个回调的问题需要加上function, 并将操作放在其中
     let game = GuaGame.instance(30, images, function(game){
-        let s = Scene.new(game)
+        // let s = Scene.new(game)
+        const s = SceneTitle.new(game)
         game.runWithScene(s)
     })
     enableDebugMode(game, true)
