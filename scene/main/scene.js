@@ -5,9 +5,12 @@ class Player extends GuaImage {
     }
     setup() {
         this.speed = 10
+        this.cooldown = 0
     }
     update() {
-
+        if (this.cooldown > 0) {
+            this.cooldown --
+        }
     }
     moveLeft() {
         this.x -= this.speed
@@ -22,12 +25,15 @@ class Player extends GuaImage {
         this.y += this.speed
     }
     fire() {
-        let x = this.x + this.w / 2
-        let y = this.y
-        let b = Bullet.new(this.game)
-        b.x = x
-        b.y = y
-        this.scene.addElement(b)
+        if (this.cooldown === 0) {
+            this.cooldown = 10
+            let x = this.x + this.w / 2
+            let y = this.y
+            let b = Bullet.new(this.game)
+            b.x = x
+            b.y = y
+            this.scene.addElement(b)
+        }
     }
 
 }
