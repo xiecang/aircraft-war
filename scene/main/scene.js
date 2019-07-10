@@ -1,13 +1,19 @@
+const config = {
+    player_speed: 10,
+}
+
 class Player extends GuaImage {
     constructor(game) {
         super(game, 'player')
         this.setup()
     }
     setup() {
-        this.speed = 10
+        this.speed = config.player_speed
+        log('player speed', this.speed)
         this.cooldown = 0
     }
     update() {
+        this.speed = config.player_speed
         if (this.cooldown > 0) {
             this.cooldown --
         }
@@ -133,7 +139,7 @@ class Scene extends GuaScene {
         let g = this.game
         let s = this
 
-        log('g: ', g, 's: ', s, 'this: ', this)
+        // log('g: ', g, 's: ', s, 'this: ', this)
         // 这里只能这样写, 注释的不能运行 TypeError: this.player is undefined
         // this.game.registerAction('a', function () {
         //     this.player.moveLeft()
