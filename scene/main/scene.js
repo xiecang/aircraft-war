@@ -1,5 +1,6 @@
 const config = {
     player_speed: 10,
+    cloud_speed: 2,
 }
 
 class Player extends GuaImage {
@@ -81,7 +82,7 @@ class Cloud extends GuaImage {
 
     }
     setup() {
-        this.speed = 1
+        this.speed = config.cloud_speed
         this.x = randomBetween(0, 150)
         this.y = -randomBetween(0, 200)
     }

@@ -27,7 +27,7 @@
     <body>
         <canvas id="id-canvas" width="400" height="300"></canvas>
         <hr>
-        <input id=id-input-speed type='range' value='1'>
+        <input id=id-input-speed type='range' value='1'> 游戏帧率
         <div class="">
             <label>
                 <input class="gua-auto-slider" type="range"
@@ -38,6 +38,16 @@
                 玩家速度：<span class="gua-label"></span>
             </label>
         </div>
+        <div class="">
+            <label>
+                <input class="gua-auto-slider" type="range"
+                       value=""
+                       max='10'
+                       data-value="config.cloud_speed">
+                cloud速度：<span class="gua-label"></span>
+            </label>
+        </div>
+
         <script src='main.js'></script>
         <script>
             let es = sel => document.querySelectorAll(sel)
