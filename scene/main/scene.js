@@ -1,6 +1,9 @@
 class Player extends GuaImage {
     constructor(game) {
         super(game, 'player')
+        this.setup()
+    }
+    setup() {
         this.speed = 10
     }
     update() {
@@ -20,6 +23,36 @@ class Player extends GuaImage {
     }
 }
 
+// 随机取整数
+const randomBetween = function(start, end) {
+    let n = Math.random() * (end - start + 1)
+    return Math.floor(n + start)
+}
+
+class Enemy extends GuaImage {
+    constructor(game) {
+        let type = randomBetween(0, 4)
+        let name = 'enemy' + type
+        super(game, name)
+        this.setup()
+
+    }
+    setup() {
+        this.speed = randomBetween(2, 5)
+        this.x = randomBetween(0, 350)
+        this.y = 0
+    }
+    update() {
+        this.y += this.speed
+        if (this.y > 600) {
+            this.setup()
+        }
+    }
+    moveDown() {
+
+    }
+}
+
 class Scene extends GuaScene {
     constructor(game) {
         super(game)
@@ -28,17 +61,23 @@ class Scene extends GuaScene {
     }
     setup() {
         this.bg = GuaImage.new(this.game, 'sky')
+        this.cloud = GuaImage.new(this.game, 'cloud')
+
         this.player = Player.new(this.game)
         this.player.x = 100
         this.player.y = 200
-        this.cloud = GuaImage.new(this.game, 'cloud')
 
         this.addElement(this.bg)
         this.addElement(this.player)
         this.addElement(this.cloud)
         this.addElement(this.player)
+
+        // 添加敌人
+        this.numberOfEnemies = 10
+        this.addEnemies()
     }
     update() {
+        super.update()
         this.cloud.y += 1
     }
     setupInputs() {
@@ -62,5 +101,15 @@ class Scene extends GuaScene {
         g.registerAction('s', function () {
             s.player.moveDown()
         })
+    }
+    addEnemies() {
+        let es = []
+        for (let i = 0; i < this.numberOfEnemies; i++) {
+            let e = Enemy.new(this.game)
+            es.push(e)
+            this.addElement(e)
+        }
+        // 保存es
+        this.enemies = es
     }
 }
