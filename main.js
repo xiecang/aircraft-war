@@ -10,7 +10,6 @@ let loadLevel = function(game, n) {
     return blocks
 }
 
-let blocks = []
 let enableDebugMode = function (game, enable) {
     if (!enable) {
         return
@@ -20,7 +19,7 @@ let enableDebugMode = function (game, enable) {
         let k = event.key
         if (k === 'p') {
             log('按下了暂停')
-            window.paused = !paused
+            window.paused = !window.paused
         } else if ('1234567'.includes(k)) {
             // 载入关卡功能
             // blocks = loadLevel(game, Number(k))

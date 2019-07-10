@@ -9,13 +9,16 @@ class GuaImage {
         this.w = this.texture.width
         this.h = this.texture.height
     }
+
     static new(game, name) {
-        var i = new this(game, name)
+        let i = new this(game, name)
         return i
     }
+
     draw() {
 
     }
+
     update() {
 
     }
