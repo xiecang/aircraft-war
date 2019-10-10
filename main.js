@@ -37,12 +37,10 @@ let __main = function () {
         bullet: 'img/bullet.png',
         cloud: 'img/cloud.png',
         player: 'img/player.png',
-        sky: 'img/sky.png',
+        bg: 'img/bg.jpg',
         enemy0: 'img/enemy0.png',
         enemy1: 'img/enemy1.png',
         enemy2: 'img/enemy2.png',
-        enemy3: 'img/enemy3.png',
-        enemy4: 'img/enemy4.png',
     }
     // 这里有个回调的问题需要加上function, 并将操作放在其中
     let game = GuaGame.instance(30, images, function(game){

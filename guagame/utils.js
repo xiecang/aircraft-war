@@ -36,3 +36,9 @@ let rectIntersects = function (a, b) {
     }
     return false
 }
+
+// 随机取整数
+const randomBetween = function(start, end) {
+    let n = Math.random() * (end - start + 1)
+    return Math.floor(n + start)
+}
