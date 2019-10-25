@@ -4,6 +4,7 @@ const config = {
     enemy_speed: 5,
     bullet_speed: 5,
     cooldown: 3,
+    enemyCooldown: 10,
 }
 
 
@@ -15,6 +16,13 @@ class Scene extends GuaScene {
     }
 
     setup() {
+        // 存储本场景内的文件
+        this.playerBullet = []
+        this.enemiesBullet = []
+        this.elements.enemiesBullet = this.playerBullet
+        this.elements.playerBullet = this.enemiesBullet
+
+        // 初始化场景角色
         this.bg = GuaImage.new(this.game, 'bg')
         this.cloud = Cloud.new(this.game, 'cloud')
 
@@ -31,20 +39,10 @@ class Scene extends GuaScene {
         this.addEnemies()
     }
 
-    update() {
-        super.update()
-        this.cloud.y += 1
-    }
-
     setupInputs() {
         let g = this.game
         let s = this
 
-        // log('g: ', g, 's: ', s, 'this: ', this)
-        // 这里只能这样写, 注释的不能运行 TypeError: this.player is undefined
-        // this.game.registerAction('a', function () {
-        //     this.player.moveLeft()
-        // })
         g.registerAction('a', function () {
             s.player.moveLeft()
         })
@@ -62,6 +60,34 @@ class Scene extends GuaScene {
         })
     }
 
+    update() {
+        super.update()
+        let self = this
+        // cloud
+        self.cloud.y += 1
+
+
+        // 玩家与子弹碰撞
+        if (this.player.alive) {
+            for (let i = 0; i < self.enemiesBullet.length; i++) {
+                let e = self.enemiesBullet[i]
+                if (rectIntersects(this.player, e)) {
+                    // 玩家生命减一
+                    this.player.kill()
+                }
+            }
+        }
+
+        // rectIntersects(self.player,)
+
+        // 敌机碰撞
+
+        // 子弹碰撞
+
+        // 爆炸效果
+    }
+
+
     addEnemies() {
         let es = []
         for (let i = 0; i < this.numberOfEnemies; i++) {
@@ -71,5 +97,17 @@ class Scene extends GuaScene {
         }
         // 保存es
         this.enemies = es
+    }
+
+    addEnemy(enemy) {
+        this.enemies.push(enemy)
+    }
+
+    addEnemiesBullet(bullet) {
+        this.enemiesBullet.push(bullet)
+    }
+
+    deletePlayer(player) {
+        this.deleteElement(player)
     }
 }

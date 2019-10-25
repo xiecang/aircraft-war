@@ -1,17 +1,17 @@
-let e = sel => document.querySelector(sel)
-let es = sel => document.querySelectorAll(sel)
+const e = sel => document.querySelector(sel)
+const es = sel => document.querySelectorAll(sel)
 
-let log = console.log.bind(console)
+const log = console.log.bind(console)
 
 // 加载图片
-let imageFromPath = function (path) {
+const imageFromPath = function (path) {
     let img = new Image()
     img.src = path
     return img
 }
 
 // 判断相撞的函数
-let rectIntersects = function (a, b) {
+const rectIntersects = function (a, b) {
     let aX = a.x + a.w / 2
     let aY = a.y + a.h / 2
     let bX = b.x + b.w / 2
@@ -22,3 +22,10 @@ let rectIntersects = function (a, b) {
     }
     return false
 }
+
+// 随机取整数
+const randomBetween = function(start, end) {
+    let n = Math.random() * (end - start + 1)
+    return Math.floor(n + start)
+}
+

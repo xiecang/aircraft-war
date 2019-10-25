@@ -5,9 +5,22 @@ class Player extends GuaImage {
     }
 
     setup() {
+        // todo 可配置
+        this.lives = 10
+
         this.speed = config.player_speed
         log('player speed', this.speed)
         this.cooldown = 0
+    }
+
+    kill() {
+        log("player kill")
+        let o = this
+        o.lives--
+        if (o.lives === 0) {
+            o.alive = false
+            this.game.scene.deletePlayer(this)
+        }
     }
 
     update() {
@@ -42,6 +55,7 @@ class Player extends GuaImage {
             b.x = x
             b.y = y
             this.scene.addElement(b)
+            log(this.scene.elements)
         }
     }
 

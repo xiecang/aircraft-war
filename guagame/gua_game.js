@@ -80,6 +80,7 @@ class GuaGame {
 
     textureByName(name) {
         let g = this
+        // log(g.images, name)
         let img = g.images[name]
         return img
     }
