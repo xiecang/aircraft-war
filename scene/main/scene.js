@@ -70,6 +70,7 @@ class Scene extends GuaScene {
         let self = this
 
         this.checkSceneElement()
+        // 子弹走出边界后，从场景中清除
         this.deleteOutOfBoundsBullets()
 
         // cloud
@@ -81,12 +82,15 @@ class Scene extends GuaScene {
             this.addEnemies(numOfDiedEnemy)
         }
 
-        // 子弹走出边界后，从场景中清除
-
-
         // 玩家与子弹碰撞
         for (let b of this.enemyBullets) {
             if (this.player.collide(b)) {
+                // 爆炸效果
+                let x = this.player.x
+                let y = this.player.y
+                let ps = GuaParticleSystem.new(this.game, x, y)
+                this.addElement(ps)
+
                 // 玩家生命减一
                 this.player.kill()
             }
@@ -96,6 +100,11 @@ class Scene extends GuaScene {
         for (let bullet of this.playerBullets) {
             for (let enemy of this.enemies) {
                 if (enemy.collide(bullet)) {
+                    // 爆炸效果
+                    let x = enemy.x
+                    let y = enemy.y
+                    let ps = GuaParticleSystem.new(this.game, x, y)
+                    this.addElement(ps)
                     enemy.kill()
                 }
             }
@@ -105,6 +114,11 @@ class Scene extends GuaScene {
         // 敌机与飞机碰撞
         for (let e of self.enemies) {
             if (this.player.collide(e)) {
+                let x = this.player.x
+                let y = this.player.y
+                let ps = GuaParticleSystem.new(this.game, x, y)
+                this.addElement(ps)
+
                 this.player.kill()
                 e.kill()
             }
@@ -119,8 +133,6 @@ class Scene extends GuaScene {
                 }
             }
         }
-
-        // 爆炸效果
     }
 
     deleteOutOfBoundsBullets() {
