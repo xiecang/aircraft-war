@@ -20,7 +20,7 @@ class Player extends GuaImage {
         }
 
         // 自动开火
-        // this.fire()
+        this.fire()
     }
 
     moveLeft() {

@@ -3,7 +3,7 @@ const config = {
     cloud_speed: 2,
     enemy_speed: 3,
     bullet_speed: -5,
-    cooldown: 3,
+    cooldown: 10,
     enemyCooldown: 1000,
 }
 
@@ -39,6 +39,7 @@ class Scene extends GuaScene {
     setupSceneElement() {
         this.players = []
         this.enemies = []
+        this.bullets = []
         this.playerBullets = []
         this.enemyBullets = []
     }
@@ -69,6 +70,7 @@ class Scene extends GuaScene {
         let self = this
 
         this.checkSceneElement()
+        this.deleteOutOfBoundsBullets()
 
         // cloud
         self.cloud.y += 1
@@ -84,7 +86,7 @@ class Scene extends GuaScene {
 
         // 玩家与子弹碰撞
         for (let b of this.enemyBullets) {
-            if (rectIntersects(this.player, b)) {
+            if (this.player.collide(b)) {
                 // 玩家生命减一
                 this.player.kill()
             }
@@ -93,34 +95,41 @@ class Scene extends GuaScene {
         // 敌机与子弹碰撞
         for (let bullet of this.playerBullets) {
             for (let enemy of this.enemies) {
-                if (rectIntersects(enemy, bullet)) {
+                if (enemy.collide(bullet)) {
                     enemy.kill()
                 }
             }
         }
 
-        //
-        // // 敌机碰撞
-        // for (let e of self.enemies) {
-        //     if (rectIntersects(this.player, e)) {
-        //         this.player.kill()
-        //         e.kill()
-        //     }
-        // }
-        //
-        // // 子弹碰撞
-        // for (let enemiesBullet of self.enemiesBullets) {
-        //     for (let playerBullet of self.playerBullets) {
-        //         if (rectIntersects(enemiesBullet, playerBullet)) {
-        //             enemiesBullet.kill()
-        //             playerBullet.kill()
-        //         }
-        //     }
-        // }
+
+        // 敌机与飞机碰撞
+        for (let e of self.enemies) {
+            if (this.player.collide(e)) {
+                this.player.kill()
+                e.kill()
+            }
+        }
+
+        // 子弹碰撞
+        for (let enemiesBullet of self.enemyBullets) {
+            for (let playerBullet of self.playerBullets) {
+                if (playerBullet.collide(enemiesBullet)) {
+                    enemiesBullet.kill()
+                    playerBullet.kill()
+                }
+            }
+        }
 
         // 爆炸效果
     }
 
+    deleteOutOfBoundsBullets() {
+        for (let b of this.bullets) {
+            if(b.x > 480 && b.y > 850) {
+                b.kill()
+            }
+        }
+    }
 
     addEnemies(numberOfEnemies) {
         for (let i = 0; i < numberOfEnemies; i++) {
@@ -146,6 +155,7 @@ class Scene extends GuaScene {
                 } else if(e.camp === "enemy") {
                     this.enemyBullets.push(e)
                 }
+                this.bullets.push(e)
             }
         }
     }
