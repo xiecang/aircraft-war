@@ -9,6 +9,6 @@ class Bullet extends GuaImage {
     }
     update() {
         // 这里使用 config.bullet_speed 会使当前画面的全部 bullet 速度改变
-        this.y -= this.speed
+        this.y += this.speed
     }
 }

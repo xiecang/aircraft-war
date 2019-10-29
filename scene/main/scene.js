@@ -1,10 +1,10 @@
 const config = {
     player_speed: 10,
     cloud_speed: 2,
-    enemy_speed: 5,
-    bullet_speed: 5,
+    enemy_speed: 3,
+    bullet_speed: -5,
     cooldown: 3,
-    enemyCooldown: 10,
+    enemyCooldown: 1000,
 }
 
 
@@ -35,7 +35,7 @@ class Scene extends GuaScene {
         this.addElement(this.cloud)
 
         // 添加敌人
-        this.numberOfEnemies = 10
+        this.numberOfEnemies = 3
         this.addEnemies()
     }
 

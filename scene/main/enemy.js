@@ -8,7 +8,7 @@ class Enemy extends GuaImage {
     }
 
     setup() {
-        this.speed = randomBetween(2, 5)
+        this.speed = 3
         this.x = randomBetween(0, 350)
         // this.y = 0
         this.y = randomBetween(0, -250)
@@ -36,12 +36,14 @@ class Enemy extends GuaImage {
     fire() {
         // log("enemy fire", this.cooldown )
         if (this.cooldown === 0) {
-            this.cooldown = 10 || config.enemyCooldown
+            this.cooldown = 1000 || config.enemyCooldown
             let x = this.x + this.w / 2
-            let y = this.y
+            let y = this.y + this.h / 2
             let b = Bullet.new(this.game)
-            b.x = 100
-            b.y = 100
+            // todo 写到配置中
+            b.speed = 9
+            b.x = x
+            b.y = y
             // log(this, this.x, this.w / 2)
             this.game.scene.addEnemiesBullet(b)
             // this.game.scene.addElement(b)
