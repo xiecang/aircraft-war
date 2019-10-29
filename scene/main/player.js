@@ -14,8 +14,11 @@ class Player extends GuaImage {
     }
 
     kill() {
-        log("player kill")
         let o = this
+        if (!o.alive) {
+            return
+        }
+        log("player kill")
         o.lives--
         if (o.lives === 0) {
             o.alive = false

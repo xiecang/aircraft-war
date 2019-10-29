@@ -19,8 +19,8 @@ class Scene extends GuaScene {
         // 存储本场景内的文件
         this.playerBullet = []
         this.enemiesBullet = []
-        this.elements.enemiesBullet = this.playerBullet
-        this.elements.playerBullet = this.enemiesBullet
+        this.elements.enemiesBullet = this.enemiesBullet
+        this.elements.playerBullet = this.playerBullet
 
         // 初始化场景角色
         this.bg = GuaImage.new(this.game, 'bg')
@@ -68,17 +68,14 @@ class Scene extends GuaScene {
 
 
         // 玩家与子弹碰撞
-        if (this.player.alive) {
-            for (let i = 0; i < self.enemiesBullet.length; i++) {
-                let e = self.enemiesBullet[i]
-                if (rectIntersects(this.player, e)) {
-                    // 玩家生命减一
-                    this.player.kill()
-                }
+        for (let i = 0; i < self.enemiesBullet.length; i++) {
+            let e = self.enemiesBullet[i]
+            if (rectIntersects(this.player, e)) {
+                // 玩家生命减一
+                this.player.kill()
             }
         }
 
-        // rectIntersects(self.player,)
 
         // 敌机碰撞
 
@@ -108,6 +105,8 @@ class Scene extends GuaScene {
     }
 
     deletePlayer(player) {
+        log('delete before', this.elements)
         this.deleteElement(player)
+        log('delete after', this.elements)
     }
 }
