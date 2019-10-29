@@ -17,10 +17,7 @@ class Scene extends GuaScene {
 
     setup() {
         // 存储本场景内的文件
-        this.playerBullet = []
-        this.enemiesBullet = []
-        this.elements.enemiesBullet = this.enemiesBullet
-        this.elements.playerBullet = this.playerBullet
+        this.setupSceneElement()
 
         // 初始化场景角色
         this.bg = GuaImage.new(this.game, 'bg')
@@ -28,7 +25,7 @@ class Scene extends GuaScene {
 
         this.player = Player.new(this.game)
         this.player.x = 100
-        this.player.y = 200
+        this.player.y = 500
 
         this.addElement(this.bg)
         this.addElement(this.player)
@@ -36,7 +33,14 @@ class Scene extends GuaScene {
 
         // 添加敌人
         this.numberOfEnemies = 3
-        this.addEnemies()
+        this.addEnemies(this.numberOfEnemies)
+    }
+
+    setupSceneElement() {
+        this.players = []
+        this.enemies = []
+        this.playerBullets = []
+        this.enemyBullets = []
     }
 
     setupInputs() {
@@ -63,50 +67,86 @@ class Scene extends GuaScene {
     update() {
         super.update()
         let self = this
+
+        this.checkSceneElement()
+
         // cloud
         self.cloud.y += 1
 
+        // 自动添加敌人
+        let numOfDiedEnemy = this.numberOfEnemies - this.enemies.length
+        if (numOfDiedEnemy > 0) {
+            this.addEnemies(numOfDiedEnemy)
+        }
+
+        // 子弹走出边界后，从场景中清除
+
 
         // 玩家与子弹碰撞
-        for (let i = 0; i < self.enemiesBullet.length; i++) {
-            let e = self.enemiesBullet[i]
-            if (rectIntersects(this.player, e)) {
+        for (let b of this.enemyBullets) {
+            if (rectIntersects(this.player, b)) {
                 // 玩家生命减一
                 this.player.kill()
             }
         }
 
+        // 敌机与子弹碰撞
+        for (let bullet of this.playerBullets) {
+            for (let enemy of this.enemies) {
+                if (rectIntersects(enemy, bullet)) {
+                    enemy.kill()
+                }
+            }
+        }
 
-        // 敌机碰撞
-
-        // 子弹碰撞
+        //
+        // // 敌机碰撞
+        // for (let e of self.enemies) {
+        //     if (rectIntersects(this.player, e)) {
+        //         this.player.kill()
+        //         e.kill()
+        //     }
+        // }
+        //
+        // // 子弹碰撞
+        // for (let enemiesBullet of self.enemiesBullets) {
+        //     for (let playerBullet of self.playerBullets) {
+        //         if (rectIntersects(enemiesBullet, playerBullet)) {
+        //             enemiesBullet.kill()
+        //             playerBullet.kill()
+        //         }
+        //     }
+        // }
 
         // 爆炸效果
     }
 
 
-    addEnemies() {
-        let es = []
-        for (let i = 0; i < this.numberOfEnemies; i++) {
+    addEnemies(numberOfEnemies) {
+        for (let i = 0; i < numberOfEnemies; i++) {
             let e = Enemy.new(this.game)
-            es.push(e)
             this.addElement(e)
         }
-        // 保存es
-        this.enemies = es
     }
 
     addEnemy(enemy) {
         this.enemies.push(enemy)
     }
 
-    addEnemiesBullet(bullet) {
-        this.enemiesBullet.push(bullet)
-    }
-
-    deletePlayer(player) {
-        log('delete before', this.elements)
-        this.deleteElement(player)
-        log('delete after', this.elements)
+    checkSceneElement() {
+        this.setupSceneElement()
+        for(let e of this.elements) {
+            if (e instanceof Player) {
+                this.players.push(e)
+            } else if (e instanceof Enemy) {
+                this.enemies.push(e)
+            } else if (e instanceof Bullet) {
+                if (e.camp === "player") {
+                    this.playerBullets.push(e)
+                } else if(e.camp === "enemy") {
+                    this.enemyBullets.push(e)
+                }
+            }
+        }
     }
 }

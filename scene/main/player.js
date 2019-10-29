@@ -13,24 +13,14 @@ class Player extends GuaImage {
         this.cooldown = 0
     }
 
-    kill() {
-        let o = this
-        if (!o.alive) {
-            return
-        }
-        log("player kill")
-        o.lives--
-        if (o.lives === 0) {
-            o.alive = false
-            this.game.scene.deletePlayer(this)
-        }
-    }
-
     update() {
         this.speed = config.player_speed
         if (this.cooldown > 0) {
             this.cooldown--
         }
+
+        // 自动开火
+        // this.fire()
     }
 
     moveLeft() {
@@ -55,6 +45,7 @@ class Player extends GuaImage {
             let x = this.x + this.w / 2
             let y = this.y
             let b = Bullet.new(this.game)
+            b.camp = 'player'
             b.x = x
             b.y = y
             this.scene.addElement(b)

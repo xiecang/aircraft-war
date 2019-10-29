@@ -3,6 +3,7 @@ class Enemy extends GuaImage {
         let type = randomBetween(0, 1)
         let name = 'enemy' + type
         super(game, name)
+        this.lives = type + 1
         this.setup()
 
     }
@@ -40,13 +41,14 @@ class Enemy extends GuaImage {
             let x = this.x + this.w / 2
             let y = this.y + this.h / 2
             let b = Bullet.new(this.game)
+            b.camp = 'enemy'
             // todo 写到配置中
             b.speed = 9
             b.x = x
             b.y = y
             // log(this, this.x, this.w / 2)
-            this.game.scene.addEnemiesBullet(b)
-            // this.game.scene.addElement(b)
+            // this.game.scene.addEnemiesBullet(b)
+            this.game.scene.addElement(b)
         }
     }
 }

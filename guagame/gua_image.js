@@ -37,4 +37,16 @@ class GuaImage {
         let yIn = y >= o.y && y <= o.y + o.h
         return xIn && yIn
     }
+
+    kill() {
+        let o = this
+        if (!o.alive) {
+            return
+        }
+        o.lives--
+        if (o.lives === 0) {
+            o.alive = false
+            this.game.scene.deleteElement(this)
+        }
+    }
 }
