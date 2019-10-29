@@ -35,7 +35,7 @@ class GuaParticleSystem {
         this.duration = 20
         this.x = x
         this.y = y
-        this.numberOfParticles = 6
+        this.numberOfParticles = 5
         this.particles = []
     }
     update() {
@@ -47,7 +47,7 @@ class GuaParticleSystem {
         if (this.particles.length < this.numberOfParticles) {
             let p = GuaParticle.new(this.game)
             // set initial position
-            let s = 2
+            let s = 3
             let vx = randomBetween(-s, s)
             let vy = randomBetween(-s, s)
             p.init(this.x, this.y, vx, vy)

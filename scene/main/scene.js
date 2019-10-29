@@ -86,13 +86,15 @@ class Scene extends GuaScene {
         for (let b of this.enemyBullets) {
             if (this.player.collide(b)) {
                 // 爆炸效果
-                let x = this.player.x
-                let y = this.player.y
+                let o = this.player
+                let x = o.x + o.w / 2
+                let y = o.y + o.h / 2
                 let ps = GuaParticleSystem.new(this.game, x, y)
                 this.addElement(ps)
 
                 // 玩家生命减一
                 this.player.kill()
+                b.kill()
             }
         }
 
@@ -101,11 +103,14 @@ class Scene extends GuaScene {
             for (let enemy of this.enemies) {
                 if (enemy.collide(bullet)) {
                     // 爆炸效果
-                    let x = enemy.x
-                    let y = enemy.y
+                    let o = enemy
+                    let x = o.x + o.w / 2
+                    let y = o.y + o.h / 2
                     let ps = GuaParticleSystem.new(this.game, x, y)
                     this.addElement(ps)
                     enemy.kill()
+                    bullet.kill()
+                    break
                 }
             }
         }
@@ -114,8 +119,9 @@ class Scene extends GuaScene {
         // 敌机与飞机碰撞
         for (let e of self.enemies) {
             if (this.player.collide(e)) {
-                let x = this.player.x
-                let y = this.player.y
+                let o = this.player
+                let x = o.x + o.w / 2
+                let y = o.y + o.h / 2
                 let ps = GuaParticleSystem.new(this.game, x, y)
                 this.addElement(ps)
 

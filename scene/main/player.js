@@ -49,7 +49,6 @@ class Player extends GuaImage {
             b.x = x
             b.y = y
             this.scene.addElement(b)
-            log(this.scene.elements)
         }
     }
 
