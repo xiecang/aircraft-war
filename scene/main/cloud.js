@@ -17,6 +17,6 @@ class Cloud extends GuaImage {
         }
     }
     debug() {
-        this.y += config.cloud_speed
+        this.y += config.cloud_speed.value
     }
 }

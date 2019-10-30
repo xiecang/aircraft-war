@@ -1,13 +1,3 @@
-const config = {
-    player_speed: 10,
-    cloud_speed: 2,
-    enemy_speed: 3,
-    bullet_speed: -5,
-    cooldown: 10,
-    enemyCooldown: 1000,
-}
-
-
 class Scene extends GuaScene {
     constructor(game) {
         super(game)

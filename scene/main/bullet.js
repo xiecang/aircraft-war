@@ -5,7 +5,7 @@ class Bullet extends GuaImage {
     }
     setup() {
         // 这里使用 config.bullet_speed 会使当前发射的 bullet 速度改变
-        this.speed = config.bullet_speed
+        this.speed = -5
         this.camp = null
     }
     update() {

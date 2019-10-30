@@ -28,7 +28,7 @@ class Enemy extends GuaImage {
     }
 
     debug() {
-        this.y += config.enemy_speed
+        this.y += config.enemy_speed.value
         if (this.cooldown > 0) {
             this.cooldown--
         }
@@ -37,13 +37,13 @@ class Enemy extends GuaImage {
     fire() {
         // log("enemy fire", this.cooldown )
         if (this.cooldown === 0) {
-            this.cooldown = 1000 || config.enemyCooldown
-            let x = this.x + this.w / 2
+            this.cooldown = config.enemy_cool_down.value || 1000
+                let x = this.x + this.w / 2
             let y = this.y + this.h / 2
             let b = Bullet.new(this.game)
             b.camp = 'enemy'
             // todo 写到配置中
-            b.speed = 9
+            b.speed = config.enemy_bullet_speed.value || 9
             b.x = x
             b.y = y
             // log(this, this.x, this.w / 2)
