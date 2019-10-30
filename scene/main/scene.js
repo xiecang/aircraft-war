@@ -133,7 +133,7 @@ class Scene extends GuaScene {
 
     deleteOutOfBoundsBullets() {
         for (let b of this.bullets) {
-            if(b.x > 480 && b.y > 850) {
+            if(b.x > CANVAS_WIDTH && b.y > CANVAS_HEIGHT) {
                 b.kill()
             }
         }

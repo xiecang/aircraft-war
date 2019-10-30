@@ -32,10 +32,10 @@ class GuaParticleSystem {
         return new this(game, x, y)
     }
     setup(x, y) {
-        this.duration = 20
+        this.duration = config.particle_system_duration.value || 20
         this.x = x
         this.y = y
-        this.numberOfParticles = 5
+        this.numberOfParticles = config.number_of_particles.value || 5
         this.particles = []
     }
     update() {
