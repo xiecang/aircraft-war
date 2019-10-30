@@ -42,7 +42,6 @@ class Enemy extends GuaImage {
             let y = this.y + this.h / 2
             let b = Bullet.new(this.game)
             b.camp = 'enemy'
-            // todo 写到配置中
             b.speed = config.enemy_bullet_speed.value || 9
             b.x = x
             b.y = y

@@ -5,8 +5,7 @@ class Player extends GuaImage {
     }
 
     setup() {
-        // todo 可配置
-        this.lives = 10
+        this.lives = config.player_lives.value || 10
 
         this.speed = config.player_speed.value || 10
         log('player speed', this.speed)

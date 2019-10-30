@@ -24,6 +24,8 @@ class Scene extends GuaScene {
         // 添加敌人
         this.numberOfEnemies = 3
         this.addEnemies(this.numberOfEnemies)
+
+        this.level = Level.new(this.game)
     }
 
     setupSceneElement() {
@@ -100,6 +102,7 @@ class Scene extends GuaScene {
                     this.addElement(ps)
                     enemy.kill()
                     bullet.kill()
+                    this.level.score += 100
                     break
                 }
             }
@@ -114,7 +117,7 @@ class Scene extends GuaScene {
                 let y = o.y + o.h / 2
                 let ps = GuaParticleSystem.new(this.game, x, y)
                 this.addElement(ps)
-
+                this.level.score += 100
                 this.player.kill()
                 e.kill()
             }
@@ -126,9 +129,17 @@ class Scene extends GuaScene {
                 if (playerBullet.collide(enemiesBullet)) {
                     enemiesBullet.kill()
                     playerBullet.kill()
+                    this.level.score += 10
                 }
             }
         }
+    }
+
+    draw() {
+        super.draw()
+
+        this.drawLabel('分数: ' + this.level.score, 10, 840, 'yellow', 20)
+
     }
 
     deleteOutOfBoundsBullets() {

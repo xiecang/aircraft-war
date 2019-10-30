@@ -1,4 +1,10 @@
 const config = {
+    player_lives: {
+        _comment: '玩家生命值',
+        value: 10,
+        max: 20,
+        min: 1,
+    },
     player_speed: {
         _comment: '玩家速度',
         value: 10,
