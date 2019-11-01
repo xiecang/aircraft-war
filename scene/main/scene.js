@@ -139,6 +139,7 @@ class Scene extends GuaScene {
         super.draw()
 
         this.drawLabel('分数: ' + this.level.score, 10, 840, 'yellow', 20)
+        this.drawLabel('生命: ' + this.player.lives, 405, 25, 'yellow', 20)
 
     }
 
