@@ -23,15 +23,14 @@ class Enemy extends GuaImage {
         if (this.y > 600) {
             this.setup()
         }
-
+        if (this.cooldown > 0) {
+            this.cooldown--
+        }
         this.fire()
     }
 
     debug() {
         this.y += config.enemy_speed.value
-        if (this.cooldown > 0) {
-            this.cooldown--
-        }
     }
 
     fire() {
